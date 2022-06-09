@@ -11,9 +11,9 @@ SWDET takes arguments, some of what you have to specify before executing.
 > -t, --threads : a number of threads to be used **(only for swdet-mt.py)**  
   
 SWDET does not automatically filter output. You can do it yourself by piping it into awk or grep:  
-`python3 src/swdb.py -u https://<website>/ -w src/wl.txt | grep 200`  
+`python3 src/swdet.py -u https://<website>/ -w src/wl.txt | grep 200`  
 OR something like  
-`python3 src/swdb.py -u https://<website>/ -w src/wl.txt | grep -v 404`  
+`python3 src/swdet.py -u https://<website>/ -w src/wl.txt | grep -v 404`  
 
 ## How it works:
 When executed - SWDET starts sending requests forming targets using given wordlist,  
@@ -30,7 +30,7 @@ This boosted the speed to the incredible 576 rps (on a 5G wifi).
 I am planning to make a uri normalization algorithm to make the program more human-usable.  
 
 ## License:
-SWDET - Simple Website Directory Enumeration Tool; SWDET-MT - Simple Website Directory Enumeration Tool - Multi Threaded
+SWDET - Simple Website Directory Enumeration Tool; SWDET-MT - Simple Website Directory Enumeration Tool - Multi Threaded  
 Copyright (C) 2022  Jaraslau
 
 These programs are free software: you can redistribute them and/or modify

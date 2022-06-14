@@ -19,7 +19,8 @@ def return_args():
 def form_queue(path):
     target_queue = queue.Queue()
     with open(path, "r", encoding = "UTF-8") as file:
-        for line in file: target_queue.put(f"/{line}".strip()) # This needs better readability and automatic url normalization
+        for line in file:
+            target_queue.put(f"/{line}".strip()) # This needs better readability and automatic url normalization
     return target_queue
 
 def guess(connection_pool, method, target_queue, response_queue):
@@ -31,8 +32,10 @@ def guess(connection_pool, method, target_queue, response_queue):
 
 def main():
     args = return_args()
-    if args.head: method = "HEAD"
-    else: method = "GET"
+    if args.head:
+        method = "HEAD"
+    else:
+        method = "GET"
     target_queue = form_queue(args.wordlist)
     target_queue_size = target_queue.qsize()
     response_queue = queue.Queue()

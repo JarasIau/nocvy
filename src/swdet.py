@@ -15,10 +15,10 @@ def return_args():
     return parser.parse_args()
 
 def form_wordlist(path, url):
-    with open(path, "r", encoding = "UTF-8") as file:
-        return ["".join((url, line)) for line in file]
+    with open(path, "r", encoding = "UTF-8") as raw_wordlist:
+        return ["".join((url, line)) for line in raw_wordlist]
 
-async def guess(wordlist, head, redirects):
+async def enumerate_dirs(wordlist, head, redirects):
     async with aiohttp.ClientSession() as session:
         if head:
             tasks = [session.head(url, allow_redirects=redirects) for url in wordlist]
@@ -29,7 +29,7 @@ async def guess(wordlist, head, redirects):
 async def main():
     args = return_args()
     wordlist = form_wordlist(args.wordlist, args.url)
-    gathered = await guess(wordlist, args.head, args.redirects)
+    gathered = await enumerate_dirs(wordlist, args.head, args.redirects)
     for response in gathered:
         print(response.url, response.status)
 

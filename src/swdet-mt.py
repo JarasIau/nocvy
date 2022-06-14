@@ -18,12 +18,12 @@ def return_args():
 
 def form_queue(path):
     target_queue = queue.Queue()
-    with open(path, "r", encoding = "UTF-8") as file:
-        for line in file:
+    with open(path, "r", encoding = "UTF-8") as raw_wordlist:
+        for line in raw_wordlist:
             target_queue.put(f"/{line}".strip()) # This needs better readability and automatic url normalization
     return target_queue
 
-def guess(connection_pool, method, target_queue, response_queue):
+def enumerate_dirs(connection_pool, method, target_queue, response_queue):
     while True:
         url = target_queue.get()
         response = connection_pool.request(method, url)
@@ -42,7 +42,7 @@ def main():
     connection_pool = urllib3.HTTPConnectionPool(host=args.url, retries=False)
 
     for thread_number in range(args.threads):
-        threading.Thread(target=guess, args=(connection_pool, method, target_queue, response_queue), daemon=True).start()
+        threading.Thread(target=enumerate_dirs, args=(connection_pool, method, target_queue, response_queue), daemon=True).start()
 
     for i in range(target_queue_size):
         url, status = response_queue.get()

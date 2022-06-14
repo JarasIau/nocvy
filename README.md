@@ -8,7 +8,8 @@ SWDET takes arguments, some of what you have to specify before executing.
 > -u, --uri : save uri to begin the bruteforcing process.  
 > -w, --wordlist : point SWDET to a wordlist.   
 > -m, --head : use HEAD method instead of GET.  
-> -t, --threads : a number of threads to be used **(only for swdet-mt.py)**  
+> -r, --redirects : allow redirects. **(only for swdet.py)**  
+> -t, --threads : a number of threads to be used. **(only for swdet-mt.py)**  
   
 SWDET does not automatically filter output. You can do it yourself by piping it into awk or grep:  
 `python3 src/swdet.py -u https://<website>/ -w src/wl.txt | grep 200`  

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-#SWDET-MT v0.1 (This code needs better readability and optimization)
+#SWDET-MT v0.11 (This code needs better readability and optimization)
 #Copyright (C) 2022  Jaraslau
 #SWDET-MT is licensed under GPL v3. Details in section License in README.md file.
 
@@ -32,10 +32,7 @@ def enumerate_dirs(connection_pool, method, target_queue, response_queue):
 
 def main():
     args = return_args()
-    if args.head:
-        method = "HEAD"
-    else:
-        method = "GET"
+    method = "HEAD" if args.head else "GET"
     target_queue = form_queue(args.wordlist)
     target_queue_size = target_queue.qsize()
     response_queue = queue.Queue()

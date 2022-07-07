@@ -16,7 +16,7 @@ out:
 	mkdir -p $(OUTPUT_DIR)
 
 install:
-	cp $(OUTPUT_DIR)/* $(INSTALL_DIR) || echo "Root priveleges are required."
+	cp $(OUTPUT_DIR)/swdet* $(INSTALL_DIR)
 
 uninstall:
-	rm -rf $(OUTPUT_DIR) $(INSTALL_DIR)/swdet* || echo "Root priveleges are required."
+	rm -rf $(OUTPUT_DIR) $(INSTALL_DIR)/swdet*

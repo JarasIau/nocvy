@@ -29,9 +29,12 @@ I also added a version that uses threading and queue instead of asyncio and aioh
 I was highly inspired by [this](https://stackoverflow.com/questions/35747235/python-requests-threads-processes-vs-io) question in my tool selection.   
 This boosted the speed to the incredible 576 rps (on a 5G wifi).  
 I am planning to make a uri normalization algorithm to make the program more human-usable.  
--
-Implemented very basic exception handling. One step closer to normal logging.
-
+  
+Implemented very basic exception handling. One step closer to normal logging.  
+  
+Separated src/ into src/ and unsafe/  
+"Safe" code (with error handling, etc.) will be in src/  
+So if you don't want to look at the code littered with try-catches - look into the unsafe directory.
 
 ## License:
 SWDET - Simple Website Directory Enumeration Tool; SWDET-MT - Simple Website Directory Enumeration Tool - Multi Threaded  

@@ -35,6 +35,8 @@ Implemented very basic exception handling. One step closer to normal logging.
 Separated src/ into src/ and unsafe/  
 "Safe" code (with error handling, etc.) will be in src/  
 So if you don't want to look at the code littered with try-catches - look into the unsafe directory.
+  
+Added a check that raises ValueError if number of threads is less than 1.
 
 ## License:
 SWDET - Simple Website Directory Enumeration Tool; SWDET-MT - Simple Website Directory Enumeration Tool - Multi Threaded  

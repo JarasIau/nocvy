@@ -10,7 +10,7 @@ swdet: $(SRC)/swdet.py out
 swdet-mt: $(SRC)/swdet-mt.py out
 
 $(TARGETS):
-	cp $< $(OUTPUT_DIR)/$@ && chmod +x $(OUTPUT_DIR)/$@
+	cp $< $(OUTPUT_DIR)/$@ && chmod 777 $(OUTPUT_DIR)/$@
 
 out:
 	mkdir -p $(OUTPUT_DIR)

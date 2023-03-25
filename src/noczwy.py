@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-#SWDET v0.2
+#NOCZWY v0.2
 #Copyright (C) 2022  Jaraslau
 #Use of this source code is governed by a BSD-style license that can be found in the LICENSE file.
 import argparse
@@ -7,9 +7,9 @@ import aiohttp
 import asyncio
 
 def return_args():
-    parser = argparse.ArgumentParser(description="swdet - enumerarte website's directories and write to standard output", epilog="This software is licensed under the BSD-3-Clause license.")
+    parser = argparse.ArgumentParser(description="noczwy - enumerarte website's directories and write to standard output", epilog="This software is licensed under the BSD-3-Clause license.")
     parser.add_argument("-u", "--url", type=str, required=True, help="url to begin the searching process (FULL URL, e.g. \"https://url.com/\")")
-    parser.add_argument("-w", "--wordlist", type=str, required=True, help="point SWDET to a wordlist (Try wl.txt')")
+    parser.add_argument("-w", "--wordlist", type=str, required=True, help="point NOCZWY to a wordlist (Try wl.txt')")
     parser.add_argument("-m", "--head", action="store_true", help="use HEAD method instead of GET")
     parser.add_argument("-r", "--redirects", action="store_true", help="allow redirects")
     return parser.parse_args()

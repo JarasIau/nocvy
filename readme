@@ -1,5 +1,5 @@
 NOCZWY
-Noczwy is a small python program, that enumerates directories of a targeted website and writes it's output to stdout.
+Noczwy is a tiny python program, that enumerates directories of a targeted website and writes its output to stdout.
 
 USAGE
 NOCZWY takes arguments, some of what you have to specify before executing the program.
@@ -7,8 +7,7 @@ NOCZWY takes arguments, some of what you have to specify before executing the pr
 -u, --uri : save uri to begin the enumeration process.
 -w, --wordlist : point NOCZWY to a wordlist.
 -m, --head : use HEAD method instead of GET.
--r, --redirects : allow redirects (only for noczwy.py).
--t, --threads : a number of threads to be used (only for noczwy-mt.py).
+-t, --threads : a number of threads to be used.
   
 NOCZWY does not automatically filter output. You can do it yourself by piping it into some other program:
 python3 src/noczwy.py -u https://<website>/ -w src/wl.txt | grep 200

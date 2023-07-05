@@ -1,13 +1,12 @@
-SRC=./src
+SRC=.
 OUTPUT_DIR=./out
 INSTALL_DIR=/usr/local/bin
-TARGETS=noczwy noczwy-mt
+TARGETS=noczwy
 
 .PHONY: all out install uninstall
 all: $(TARGETS)
 
 noczwy: $(SRC)/noczwy.py out
-noczwy-mt: $(SRC)/noczwy-mt.py out
 
 $(TARGETS):
 	cp $< $(OUTPUT_DIR)/$@ && chmod 777 $(OUTPUT_DIR)/$@

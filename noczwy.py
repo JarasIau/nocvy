@@ -32,15 +32,14 @@ def enumerate_dirs(connection_pool, method, target_queue, response_queue):
 
 def main():
     args = return_args()
-    if args.threads < 1:
-        raise ValueError("Number of threads can't be less than 1!")
+    args.threads = 1 if args.threads < 1 else args.threads
     method = "HEAD" if args.head else "GET"
     target_queue = form_queue(args.wordlist)
     target_queue_size = target_queue.qsize()
     response_queue = queue.Queue()
     connection_pool = urllib3.HTTPConnectionPool(host=args.url, retries=False)
 
-    for thread_number in range(args.threads):
+    for i in range(args.threads):
         threading.Thread(target=enumerate_dirs, args=(connection_pool, method, target_queue, response_queue), daemon=True).start()
 
     for i in range(target_queue_size):

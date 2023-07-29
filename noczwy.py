@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-#NOCZWY v0.11
+#NOCZWY
 #Copyright (C) 2022  Jaraslau
 #Use of this source code is governed by a BSD-style license that can be found in the license file.
 
@@ -10,7 +10,7 @@ import queue
 
 def get_args():
     parser = argparse.ArgumentParser(description="noczwy - enumerate a url and write to standard output", epilog="This software is licensed under the BSD-3-Clause license.")
-    parser.add_argument("-u", "--url", type=str, required=True, help="url to enumerate (NO PROTOCOL, e.g. \"example.com\")")
+    parser.add_argument("-u", "--url", type=str, required=True, help="url to enumerate")
     parser.add_argument("-w", "--wordlist", type=str, required=True, help="path to a wordlist")
     parser.add_argument("-t", "--threads", type=int, default=12, help="a number of threads to use")
     parser.add_argument("--head", action="store_true", help="use HEAD method instead of GET")
@@ -35,6 +35,7 @@ def main():
     args = get_args()
     args.threads = 1 if args.threads < 1 else args.threads
     method = "HEAD" if args.head else "GET"
+    args.url = args.url if not "://" in args.url else args.url.partition("://")[-1]
     target_queue = form_queue(args.wordlist)
     target_queue_size = target_queue.qsize()
     response_queue = queue.Queue()

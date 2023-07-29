@@ -20,7 +20,8 @@ def form_queue(path):
     target_queue = queue.Queue()
     with open(path, "r", encoding = "UTF-8") as wordlist:
         for line in wordlist:
-            target_queue.put(f"/{line}".strip()) #Needs automatic url normalization
+            line = line if line.startswith("/") else f"/{line}"
+            target_queue.put(line.strip())
     return target_queue
 
 def enumerate_dirs(connection_pool, method, target_queue, response_queue):

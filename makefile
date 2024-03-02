@@ -15,7 +15,7 @@ out:
 	mkdir -p $(OUTPUT_DIR)
 
 install:
-	cp $(OUTPUT_DIR)/noczwy* $(INSTALL_DIR)
+	cp $(OUTPUT_DIR)/noczwy $(INSTALL_DIR)
 
 uninstall:
-	rm -rf $(OUTPUT_DIR) $(INSTALL_DIR)/noczwy*
+	rm -rf $(OUTPUT_DIR) $(INSTALL_DIR)/noczwy

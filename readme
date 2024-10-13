@@ -1,5 +1,5 @@
-NOCZWY
-NOCZWY - a tiny non-recursive python script to enumerate urls and write results to standard output.
+NOČVY
+NOČVY - a tiny non-recursive python script to enumerate urls and write results to standard output.
 
 USAGE
 -h, --help : show the help message and exit (optional).
@@ -8,7 +8,7 @@ USAGE
 --head : use HEAD method instead of GET (optional, a flag).
 -t, --threads : a number of threads to be used (optional, takes an integer, default value is 12).
 
-NOCZWY does not automatically filter output, to do so - pipe it into another program, e.g.:
-python3 src/noczwy.py -u example.com -w wordlist.txt | grep 200
+NOČVY does not automatically filter output, to do so - pipe it into another program, e.g.:
+python3 nocvy.py -u example.com -w wordlist.txt | grep 200
 OR
-python3 src/noczwy.py -u example.com -w wordlist.txt | grep -v 404
+python3 nocvy.py -u example.com -w wordlist.txt | grep -v 404

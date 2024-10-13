@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-#NOCZWY
+#NOCVY
 #Copyright (C) 2022  Jaraslau
 #Use of this source code is governed by a BSD-style license that can be found in the license file.
 
@@ -9,7 +9,7 @@ import threading
 import queue
 
 def get_args():
-    parser = argparse.ArgumentParser(description="noczwy - enumerate a url and write to standard output", epilog="This software is licensed under the BSD-3-Clause license.")
+    parser = argparse.ArgumentParser(description="nocvy - enumerate a url and write to standard output", epilog="This software is licensed under the BSD-3-Clause license.")
     parser.add_argument("-u", "--url", type=str, required=True, help="url of which the content will be enumerated")
     parser.add_argument("-w", "--wordlist", type=str, required=True, help="path to a wordlist")
     parser.add_argument("-t", "--threads", type=int, default=12, help="a number of threads to use")

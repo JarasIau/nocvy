@@ -5,8 +5,8 @@
 
 import argparse
 import urllib3
-import threading
 import queue
+from concurrent.futures import ThreadPoolExecutor
 
 def get_args():
     parser = argparse.ArgumentParser(description="nocvy - enumerate a url and write to standard output", epilog="This software is licensed under the BSD-3-Clause license.")
@@ -16,29 +16,25 @@ def get_args():
     parser.add_argument("--head", action="store_true", help="use HEAD method instead of GET")
     return parser.parse_args()
 
-def enumerate_content(http, method, target_queue, response_queue):
-    while True:
-        url = target_queue.get()
+def enumerate_content(http, method, targets):
+    while not targets.empty():
+        url = targets.get()
         response = http.request(method, url, redirect=False)
-        response_queue.put((url, response.status))
+        print(url, response.status)
 
 def main():
     args = get_args()
     threads = 1 if args.threads < 1 else args.threads
     method = "HEAD" if args.head else "GET"
     url = args.url if args.url.endswith("/") else f"{args.url}/"
-    target_queue = queue.Queue()
+    targets = queue.Queue()
     with open(args.wordlist, "r", encoding="UTF-8") as wordlist:
         for line in wordlist:
-            target_queue.put(f"{url}{line.strip()}")
-    expected_responses = target_queue.qsize()
-    response_queue = queue.Queue()
+            targets.put(f"{url}{line.strip()}")
     with urllib3.PoolManager() as http:
-        for i in range(threads):
-            threading.Thread(target=enumerate_content, args=(http, method, target_queue, response_queue), daemon=True).start()
-        for i in range(expected_responses):
-            url, status = response_queue.get()
-            print(url, status)
+        with ThreadPoolExecutor(max_workers=threads) as executor:
+            for i in range(threads):
+                executor.submit(enumerate_content, http, method, targets)
 
 if __name__ == "__main__":
     main()

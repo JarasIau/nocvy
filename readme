@@ -1,5 +1,5 @@
 NOČVY
-NOČVY - a tiny non-recursive python script to enumerate urls and write results to standard output.
+NOČVY - a very tiny non-recursive python script to enumerate urls and write results to standard output.
 
 USAGE
 -h, --help : show the help message and exit (optional).

@@ -33,21 +33,23 @@ def get_args():
 
 def enumerate_content(http, method, targets):
     while not targets.empty():
-        url = targets.get()
-        response = http.request(method, url, redirect=False)
+        try:
+            url = targets.get_nowait()
+        except queue.Empty:
+            break
+        response = http.request(method, url, redirect=False, retries=False)
         print(url, response.status)
 
 def main(args):
-    threads = 1 if args.threads < 1 else args.threads
+    threads = max(1, args.threads)
     method = "HEAD" if args.head else "GET"
     url = args.url if args.url.endswith("/") else f"{args.url}/"
     targets = queue.Queue()
     with open(args.wordlist, "r", encoding="UTF-8") as wordlist:
-        for line in wordlist:
-            targets.put(f"{url}{line.strip()}")
+        [targets.put(f"{url}{line.strip()}") for line in wordlist if line.strip()]
     with urllib3.PoolManager() as http:
         with ThreadPoolExecutor(max_workers=threads) as executor:
-            for i in range(threads):
+            for _ in range(threads):
                 executor.submit(enumerate_content, http, method, targets)
 
 if __name__ == "__main__":

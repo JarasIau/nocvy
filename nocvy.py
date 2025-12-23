@@ -5,7 +5,6 @@
 
 import argparse
 import urllib3
-import queue
 from concurrent.futures import ThreadPoolExecutor
 
 def get_args():
@@ -31,26 +30,24 @@ def get_args():
     )
     return parser.parse_args()
 
-def enumerate_content(http, method, targets):
-    while not targets.empty():
-        try:
-            url = targets.get_nowait()
-        except queue.Empty:
-            break
-        response = http.request(method, url, redirect=False, retries=False)
-        print(url, response.status)
+def enumerate_content(http, method, target):
+    response = http.request(method, target, redirect=False, retries=False)
+    print(target, response.status)
 
 def main(args):
     threads = max(1, args.threads)
     method = "HEAD" if args.head else "GET"
     url = args.url if args.url.endswith("/") else f"{args.url}/"
-    targets = queue.Queue()
-    with open(args.wordlist, "r", encoding="UTF-8") as wordlist:
-        [targets.put(f"{url}{line.strip()}") for line in wordlist if line.strip()]
     with urllib3.PoolManager() as http:
         with ThreadPoolExecutor(max_workers=threads) as executor:
-            for _ in range(threads):
-                executor.submit(enumerate_content, http, method, targets)
+            with open(args.wordlist, "r", encoding="UTF-8") as wordlist:
+                _ = [
+                    executor.submit(
+                        enumerate_content, http, method, f"{url}{line.strip()}"
+                    )
+                    for line in wordlist
+                    if line.strip()
+                ]
 
 if __name__ == "__main__":
     args = get_args()
